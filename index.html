@@ -66,25 +66,26 @@ body {
 .scene {
   position: fixed;
   inset: 0;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   text-align: center;
   padding: 22px;
-  transition: opacity 1s ease;
   opacity: 0;
+  transition: opacity 1.2s ease;
+  pointer-events: none;
   z-index: 5;
 }
 
 .scene.active {
-  display: flex;
   opacity: 1;
+  pointer-events: all;
 }
 
 .card {
   width: min(720px, 92vw);
-  background: rgba(0,0,0,0.35);
+  background: rgba(0,0,0,0.85); /* solid so buttons visible */
   border: 1px solid rgba(255, 180, 80, 0.12);
   border-radius: 22px;
   padding: 26px 20px;
@@ -176,7 +177,7 @@ button:active { transform: scale(0.98); }
   100% { transform: translateY(-15vh); opacity: 0; }
 }
 
-/* Transmutation flash */
+/* Flash */
 #flash {
   position: fixed;
   inset: 0;
@@ -185,11 +186,9 @@ button:active { transform: scale(0.98); }
   pointer-events: none;
   z-index: 999;
 }
-
 .flashOn {
   animation: flash 1.2s ease forwards;
 }
-
 @keyframes flash {
   0%   { opacity: 0; }
   18%  { opacity: 1; }
@@ -197,12 +196,8 @@ button:active { transform: scale(0.98); }
   100% { opacity: 0; }
 }
 
-/* =========================
-   FINAL SCENE (Decorated + Seal)
-   ========================= */
-#scene4 {
-  z-index: 20;
-}
+/* FINAL SCENE */
+#scene4 { z-index: 20; }
 
 .finalWrap {
   position: relative;
@@ -211,9 +206,7 @@ button:active { transform: scale(0.98); }
   border-radius: 28px;
   background: radial-gradient(circle at top, rgba(255,180,90,0.14), rgba(0,0,0,0.55));
   border: 1px solid rgba(255, 180, 80, 0.18);
-  box-shadow:
-    0 0 45px rgba(0,0,0,0.6),
-    0 0 45px rgba(255,140,0,0.08);
+  box-shadow: 0 0 45px rgba(0,0,0,0.6), 0 0 45px rgba(255,140,0,0.08);
   backdrop-filter: blur(10px);
   overflow: hidden;
 }
@@ -233,82 +226,32 @@ button:active { transform: scale(0.98); }
   50%      { transform: scale(1.05); opacity: 1; }
 }
 
-.finalTitle {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.6em;
-  letter-spacing: 0.5px;
-  margin: 0;
-  position: relative;
-  z-index: 2;
-}
-
-.finalText {
-  margin-top: 18px;
-  font-size: 1.35em;
-  line-height: 1.7;
-  opacity: 0.95;
-  position: relative;
-  z-index: 2;
-}
-
-.finalSig {
-  margin-top: 22px;
-  font-size: 1.1em;
-  opacity: 0.92;
-  position: relative;
-  z-index: 2;
-}
-
-.finalSmall {
-  margin-top: 16px;
-  font-size: 0.95em;
-  opacity: 0.65;
-  position: relative;
-  z-index: 2;
-}
+.finalTitle { font-family: 'Playfair Display', serif; font-size: 2.6em; margin:0; position: relative; z-index:2; }
+.finalText { margin-top: 18px; font-size: 1.35em; line-height:1.7; opacity:0.95; position: relative; z-index:2; }
+.finalSig { margin-top: 22px; font-size: 1.1em; opacity:0.92; position: relative; z-index:2; }
+.finalSmall { margin-top:16px; font-size:0.95em; opacity:0.65; position: relative; z-index:2; }
 
 /* Seal SVG */
-#seal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 420px;
-  height: 420px;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  opacity: 0.85;
-}
-#seal circle {
-  fill: none;
-  stroke: gold;
-  stroke-width: 4;
-  stroke-dasharray: 1319;
-  stroke-dashoffset: 1319;
-  animation: drawSeal 2.2s ease forwards 0.6s;
-}
+#seal { position:absolute; top:50%; left:50%; width:420px; height:420px; transform:translate(-50%,-50%); z-index:1; opacity:0.85; }
+#seal circle { fill:none; stroke:gold; stroke-width:4; stroke-dasharray:1319; stroke-dashoffset:1319; animation: drawSeal 2.2s ease forwards 0.6s; }
+@keyframes drawSeal { 0% { stroke-dashoffset:1319;} 100% { stroke-dashoffset:0;} }
 
-@keyframes drawSeal {
-  0% { stroke-dashoffset: 1319; }
-  100% { stroke-dashoffset: 0; }
-}
-
-/* Mobile */
-@media (max-width: 520px) {
-  h1 { font-size: 2.1em; }
-  #dialogue { font-size: 1.05em; }
-  .finalTitle { font-size: 2.1em; }
-  .finalText { font-size: 1.15em; }
-  #seal { width: 320px; height: 320px; }
+@media (max-width:520px){
+  h1{font-size:2.1em;}
+  #dialogue{font-size:1.05em;}
+  .finalTitle{font-size:2.1em;}
+  .finalText{font-size:1.15em;}
+  #seal{width:320px;height:320px;}
 }
 </style>
 </head>
-
 <body>
+
 <div id="alchemyBg" class="alchemy-bg"></div>
 <div id="alchemyRing" class="alchemy-ring"></div>
 <div id="flash"></div>
 
-<!-- SCENE 1 -->
+<!-- Scene 1 -->
 <div id="scene1" class="scene active">
   <div class="card">
     <h1>Sushma...</h1>
@@ -317,26 +260,19 @@ button:active { transform: scale(0.98); }
   </div>
 </div>
 
-<!-- SCENE 2 -->
+<!-- Scene 2 -->
 <div id="scene2" class="scene">
   <div class="card">
     <h1>Sushma</h1>
     <div id="dialogue"></div>
     <div class="spotify-wrap">
-      <iframe
-        src="https://open.spotify.com/embed/track/5XeFesFbtLpXzIVDNQP22n?utm_source=generator"
-        width="320"
-        height="80"
-        frameborder="0"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy">
-      </iframe>
+      <iframe src="https://open.spotify.com/embed/track/5XeFesFbtLpXzIVDNQP22n?utm_source=generator" width="320" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
-    <button id="nextToQuestion" class="primary" style="margin-top:22px;">Continue →</button>
+    <button id="nextToQuestion" class="primary">Continue →</button>
   </div>
 </div>
 
-<!-- SCENE 3 -->
+<!-- Scene 3 -->
 <div id="scene3" class="scene">
   <div class="card">
     <h1>One question…</h1>
@@ -349,14 +285,11 @@ button:active { transform: scale(0.98); }
   </div>
 </div>
 
-<!-- SCENE 4 -->
+<!-- Scene 4 -->
 <div id="scene4" class="scene">
   <div class="finalWrap">
     <div class="finalGlow"></div>
-    <svg id="seal" viewBox="0 0 420 420">
-      <circle cx="210" cy="210" r="210"></circle>
-    </svg>
-
+    <svg id="seal" viewBox="0 0 420 420"><circle cx="210" cy="210" r="210"></circle></svg>
     <h1 class="finalTitle">Law of Equivalent Exchange…</h1>
     <div class="finalText">
       I’ll give you half of my life<br>
@@ -368,81 +301,84 @@ button:active { transform: scale(0.98); }
 </div>
 
 <script>
-  // ---- Scene control ----
-  function showScene(id) {
-    const scenes = ["scene1", "scene2", "scene3", "scene4"];
-    scenes.forEach(s => document.getElementById(s).classList.remove("active"));
-    document.getElementById(id).classList.add("active");
+// Scene control
+function showScene(id) {
+  const scenes = ["scene1","scene2","scene3","scene4"];
+  scenes.forEach(s => document.getElementById(s).classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+// Dialogue
+const text = [
+  "Sushma...", "You make my world feel like home.", "And I don’t want to do life without you."
+];
+
+function typeDialogue() {
+  const dialogueEl = document.getElementById("dialogue");
+  dialogueEl.innerHTML="";
+  let i=0;
+  function typeLine() {
+    if(i>=text.length) return;
+    const line=text[i]; let j=0;
+    const interval=setInterval(()=>{
+      dialogueEl.innerHTML+=line[j]; j++;
+      if(j>=line.length){ clearInterval(interval); dialogueEl.innerHTML+="<br><br>"; i++; setTimeout(typeLine,650);}
+    },32);
   }
+  typeLine();
+}
 
-  // ---- Dialogue ----
-  const text = [
-    "Sushma...",
-    "You make my world feel like home.",
-    "And I don’t want to do life without you."
-  ];
+document.getElementById("startBtn").onclick = ()=>{ showScene("scene2"); typeDialogue();}
+document.getElementById("nextToQuestion").onclick = ()=>{ showScene("scene3"); }
 
-  function typeDialogue() {
-    const dialogueEl = document.getElementById("dialogue");
-    dialogueEl.innerHTML = "";
-    let i = 0;
-    function typeLine() {
-      if (i >= text.length) return;
-      const line = text[i]; let j = 0;
-      const interval = setInterval(() => {
-        dialogueEl.innerHTML += line[j];
-        j++;
-        if (j >= line.length) { clearInterval(interval); dialogueEl.innerHTML += "<br><br>"; i++; setTimeout(typeLine, 650);}
-      }, 32);
-    }
-    typeLine();
-  }
+// Roy smooth dodge
+const royContainer=document.getElementById("royContainer");
+function moveRoyContainer(){
+  const padding=20;
+  const maxX=window.innerWidth-royContainer.offsetWidth-padding;
+  const maxY=window.innerHeight-royContainer.offsetHeight-padding;
+  const x=Math.max(padding,Math.random()*maxX);
+  const y=Math.max(padding,Math.random()*maxY);
+  royContainer.style.transition="left 0.25s ease, top 0.25s ease";
+  royContainer.style.position="fixed";
+  royContainer.style.left=x+"px";
+  royContainer.style.top=y+"px";
+}
+royContainer.addEventListener("mouseover", moveRoyContainer);
+royContainer.addEventListener("touchstart", moveRoyContainer);
 
-  // ---- Buttons ----
-  document.getElementById("startBtn").onclick = function() { showScene("scene2"); typeDialogue(); };
-  document.getElementById("nextToQuestion").onclick = function() { showScene("scene3"); };
+// YES -> Flash -> Smooth Scene 4
+document.getElementById("yesBtn").onclick = ()=>{
+  const flash=document.getElementById("flash");
+  flash.classList.remove("flashOn"); void flash.offsetWidth;
+  flash.classList.add("flashOn");
 
-  // ---- Roy dodge ----
-  const royContainer = document.getElementById("royContainer");
-  function moveRoyContainer() {
-    const padding = 20;
-    const maxX = window.innerWidth - royContainer.offsetWidth - padding;
-    const maxY = window.innerHeight - royContainer.offsetHeight - padding;
-    const x = Math.max(padding, Math.random() * maxX);
-    const y = Math.max(padding, Math.random() * maxY);
-    royContainer.style.position = "fixed";
-    royContainer.style.left = x + "px";
-    royContainer.style.top = y + "px";
-  }
-  royContainer.addEventListener("mouseover", moveRoyContainer);
-  royContainer.addEventListener("touchstart", moveRoyContainer);
+  // Fade out Scene 3
+  const scene3=document.getElementById("scene3");
+  scene3.style.opacity=0;
 
-  // ---- YES -> Flash -> Final scene with seal ----
-  document.getElementById("yesBtn").onclick = function() {
-    const flash = document.getElementById("flash");
-    flash.classList.remove("flashOn"); void flash.offsetWidth;
-    flash.classList.add("flashOn");
+  setTimeout(()=>{
+    ["scene1","scene2","scene3"].forEach(id=>document.getElementById(id).style.display="none");
+    document.getElementById("alchemyRing").style.opacity="0";
+    document.getElementById("alchemyBg").style.opacity="0.06";
+    document.querySelectorAll(".ember").forEach(e=>e.remove());
+    // Fade in Scene 4
+    const scene4=document.getElementById("scene4");
+    scene4.style.display="flex";
+    setTimeout(()=>scene4.style.opacity=1,50);
+  },1200);
+}
 
-    setTimeout(() => {
-      ["scene1","scene2","scene3"].forEach(id => document.getElementById(id).style.display = "none");
-      document.getElementById("alchemyRing").style.opacity = "0";
-      document.getElementById("alchemyBg").style.opacity = "0.06";
-      document.querySelectorAll(".ember").forEach(e => e.remove());
-      showScene("scene4");
-      document.getElementById("scene4").style.background = "radial-gradient(circle at center, rgba(255,170,80,0.08), rgba(0,0,0,0.85))";
-    }, 650);
-  };
-
-  // ---- Ember background effect ----
-  for (let i=0;i<45;i++){
-    const ember=document.createElement("div");
-    ember.className="ember";
-    ember.style.left=Math.random()*100+"vw";
-    ember.style.animationDuration=(3+Math.random()*3)+"s";
-    ember.style.opacity=(0.25+Math.random()*0.65);
-    ember.style.transform=`scale(${0.6+Math.random()*1.2})`;
-    document.body.appendChild(ember);
-  }
+// Embers
+for(let i=0;i<45;i++){
+  const ember=document.createElement("div");
+  ember.className="ember";
+  ember.style.left=Math.random()*100+"vw";
+  ember.style.animationDuration=(3+Math.random()*3)+"s";
+  ember.style.opacity=(0.25+Math.random()*0.65);
+  ember.style.transform=`scale(${0.6+Math.random()*1.2})`;
+  document.body.appendChild(ember);
+}
 </script>
 </body>
 </html>
