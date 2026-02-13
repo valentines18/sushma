@@ -16,12 +16,12 @@
     overflow: hidden;
   }
 
-  /* Subtle FMA-inspired alchemy circle background */
+  /* Background */
   .alchemy-bg {
     position: fixed;
     inset: 0;
     pointer-events: none;
-    opacity: 0.14;
+    opacity: 0.12;
     background:
       radial-gradient(circle at center, rgba(255,120,0,0.22), transparent 55%),
       radial-gradient(circle at center, rgba(255,255,255,0.06), transparent 60%);
@@ -60,43 +60,34 @@
     to   { transform: translate(-50%, -50%) rotate(360deg); }
   }
 
-  #intro {
+  /* Scenes */
+  .scene {
     position: fixed;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, #2b0033, black);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    z-index: 10;
-    transition: opacity 2s ease;
-    text-align: center;
-    padding: 20px;
-  }
-
-  #startBtn {
-    padding: 15px 30px;
-    font-size: 18px;
-    border-radius: 30px;
-    border: none;
-    background: crimson;
-    color: white;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-  }
-
-  #startBtn:hover { transform: scale(1.05); }
-
-  #main {
+    inset: 0;
     display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    padding: 22px;
+    transition: opacity 1s ease;
+    opacity: 0;
+    z-index: 5;
+  }
+
+  .scene.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .card {
     width: min(720px, 92vw);
-    z-index: 2;
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(255, 180, 80, 0.12);
+    border-radius: 22px;
+    padding: 26px 20px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    backdrop-filter: blur(6px);
   }
 
   h1 {
@@ -105,62 +96,67 @@
     margin: 0;
   }
 
-  #dialogue {
-    font-size: 1.2em;
-    margin-top: 18px;
-    min-height: 120px;
+  p {
+    opacity: 0.9;
+    font-size: 1.1em;
     line-height: 1.6;
-    opacity: 0.95;
   }
 
   button {
     padding: 12px 25px;
-    margin: 15px;
+    margin-top: 18px;
     font-size: 18px;
     border-radius: 30px;
     border: none;
     cursor: pointer;
-    transition: transform 0.15s ease;
+    transition: transform 0.15s ease, opacity 0.15s ease;
   }
 
   button:active { transform: scale(0.98); }
 
-  #yesBtn {
+  .primary {
     background: crimson;
     color: white;
   }
 
-  #royContainer {
-    position: relative;
-    display: inline-block;
-  }
-
-  #royText {
-    font-size: 14px;
-    margin-bottom: 5px;
-    color: orange;
-    opacity: 0.9;
-  }
-
-  #noBtn {
+  .secondary {
     background: #444;
     color: white;
   }
 
-  #finalMessage {
-    display: none;
-    font-size: 1.6em;
-    margin-top: 25px;
-    animation: fadeIn 1.8s forwards;
-    line-height: 1.6;
+  /* Dialogue */
+  #dialogue {
+    margin-top: 14px;
+    min-height: 90px;
+    font-size: 1.2em;
   }
 
-  @keyframes fadeIn {
-    from {opacity:0; transform: translateY(6px);}
-    to   {opacity:1; transform: translateY(0);}
+  /* Spotify */
+  .spotify-wrap {
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+  }
+  .spotify-wrap iframe {
+    border-radius: 14px;
+    box-shadow: 0 0 20px rgba(255, 120, 0, 0.10);
+    border: 1px solid rgba(255, 180, 80, 0.12);
   }
 
-  /* Ember effect */
+  /* Roy container */
+  #royContainer {
+    position: relative;
+    display: inline-block;
+    margin-top: 10px;
+  }
+  #royText {
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: orange;
+    opacity: 0.9;
+  }
+
+  /* Embers */
   .ember {
     position: absolute;
     width: 6px;
@@ -170,6 +166,7 @@
     opacity: 0.85;
     animation: rise 5s linear infinite;
     filter: blur(0.2px);
+    pointer-events: none;
   }
 
   @keyframes rise {
@@ -177,38 +174,30 @@
     100% { transform: translateY(-15vh); opacity: 0; }
   }
 
-  /* Confetti should FALL */
-  .confetti {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 2px;
-    top: -10px;
-    animation: fall 2.8s linear forwards;
+  /* Transmutation flash */
+  #flash {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255,180,90,0.9), rgba(255,90,0,0.2), rgba(0,0,0,0));
+    opacity: 0;
+    pointer-events: none;
+    z-index: 999;
   }
 
-  @keyframes fall {
-    0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  .flashOn {
+    animation: flash 1.2s ease forwards;
   }
 
-  /* Spotify player styling */
-  .spotify-wrap {
-    margin-top: 18px;
-    display: flex;
-    justify-content: center;
+  @keyframes flash {
+    0%   { opacity: 0; }
+    18%  { opacity: 1; }
+    55%  { opacity: 0.35; }
+    100% { opacity: 0; }
   }
 
-  .spotify-wrap iframe {
-    border-radius: 14px;
-    box-shadow: 0 0 20px rgba(255, 120, 0, 0.10);
-    border: 1px solid rgba(255, 180, 80, 0.15);
-  }
-
-  /* Mobile scaling */
+  /* Mobile */
   @media (max-width: 520px) {
     h1 { font-size: 2.1em; }
-    #finalMessage { font-size: 1.3em; }
     #dialogue { font-size: 1.05em; }
   }
 </style>
@@ -217,95 +206,126 @@
 <body>
   <div class="alchemy-bg"></div>
   <div class="alchemy-ring"></div>
+  <div id="flash"></div>
 
-  <div id="intro">
-    <h1>Sushma...</h1>
-    <p style="opacity:0.9; margin-top:10px;">There’s something I need to tell you.</p>
-    <button id="startBtn">Begin Our Story 🔥</button>
+  <!-- SCENE 1 -->
+  <div id="scene1" class="scene active">
+    <div class="card">
+      <h1>Sushma...</h1>
+      <p>There’s something I need to tell you.</p>
+      <button id="startBtn" class="primary">Begin Our Story 🔥</button>
+    </div>
   </div>
 
-  <div id="main">
-    <h1>Sushma</h1>
-    <div id="dialogue"></div>
+  <!-- SCENE 2 -->
+  <div id="scene2" class="scene">
+    <div class="card">
+      <h1>Sushma</h1>
+      <div id="dialogue"></div>
 
-    <!-- Spotify official embed -->
-    <div class="spotify-wrap">
-      <iframe
-        src="https://open.spotify.com/embed/track/5XeFesFbtLpXzIVDNQP22n?utm_source=generator"
-        width="320"
-        height="80"
-        frameborder="0"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy">
-      </iframe>
+      <div class="spotify-wrap">
+        <iframe
+          src="https://open.spotify.com/embed/track/5XeFesFbtLpXzIVDNQP22n?utm_source=generator"
+          width="320"
+          height="80"
+          frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy">
+        </iframe>
+      </div>
+
+      <button id="nextToQuestion" class="primary" style="margin-top:22px;">
+        Continue →
+      </button>
     </div>
+  </div>
 
-    <h1 style="margin-top:40px;">Will you be my Valentine? 💖</h1>
+  <!-- SCENE 3 -->
+  <div id="scene3" class="scene">
+    <div class="card">
+      <h1>One question…</h1>
+      <p style="margin-top:10px;">Will you be my Valentine? 💖</p>
 
-    <button id="yesBtn">Yes ❤️</button>
+      <button id="yesBtn" class="primary">Yes ❤️</button>
 
-    <div id="royContainer">
-      <div id="royText">🔥 Roy Mustang is guarding this</div>
-      <button id="noBtn">No</button>
+      <div id="royContainer">
+        <div id="royText">🔥 Roy Mustang is guarding this</div>
+        <button id="noBtn" class="secondary">No</button>
+      </div>
     </div>
+  </div>
 
-    <div id="finalMessage">
-      Law of Equivalent Exchange…
-      <br><br>
-      I’ll give you half of my life<br>
-      if you give me half of yours.
-      <br><br>
-      — Rakesh ❤️
+  <!-- SCENE 4 -->
+  <div id="scene4" class="scene">
+    <div class="card">
+      <h1>Law of Equivalent Exchange…</h1>
+      <p style="margin-top:16px; font-size:1.25em;">
+        I’ll give you half of my life<br>
+        if you give me half of yours.
+      </p>
+      <p style="margin-top:18px; opacity:0.95;">
+        — Rakesh ❤️
+      </p>
     </div>
   </div>
 
 <script>
-  // ---- Typewriter Dialogue ----
+  // ---- Scene control ----
+  function showScene(id) {
+    const scenes = ["scene1", "scene2", "scene3", "scene4"];
+    scenes.forEach(s => {
+      const el = document.getElementById(s);
+      el.classList.remove("active");
+    });
+
+    const next = document.getElementById(id);
+    next.classList.add("active");
+  }
+
+  // ---- Dialogue (shorter) ----
   const text = [
-    "If I had to calculate it like an alchemist...",
-    "Equivalent exchange never felt fair...",
-    "Because you’ve always given me more than I deserve.",
     "Sushma...",
-    "I want to walk beside you, no matter what."
+    "You make my world feel like home.",
+    "And I don’t want to do life without you."
   ];
 
   let i = 0;
 
   function typeDialogue() {
     const dialogueEl = document.getElementById("dialogue");
+    dialogueEl.innerHTML = "";
 
-    if (i >= text.length) return;
+    function typeLine() {
+      if (i >= text.length) return;
 
-    const line = text[i];
-    let j = 0;
+      const line = text[i];
+      let j = 0;
 
-    const interval = setInterval(() => {
-      dialogueEl.innerHTML += line[j];
-      j++;
+      const interval = setInterval(() => {
+        dialogueEl.innerHTML += line[j];
+        j++;
 
-      if (j >= line.length) {
-        clearInterval(interval);
-        dialogueEl.innerHTML += "<br><br>";
-        i++;
-        setTimeout(typeDialogue, 800);
-      }
-    }, 35);
+        if (j >= line.length) {
+          clearInterval(interval);
+          dialogueEl.innerHTML += "<br><br>";
+          i++;
+          setTimeout(typeLine, 650);
+        }
+      }, 32);
+    }
+
+    i = 0;
+    typeLine();
   }
 
-  // ---- Cinematic Start ----
+  // ---- Buttons ----
   document.getElementById("startBtn").onclick = function() {
-    document.getElementById("intro").style.opacity = 0;
+    showScene("scene2");
+    typeDialogue();
+  };
 
-    setTimeout(() => {
-      document.getElementById("intro").style.display = "none";
-      document.getElementById("main").style.display = "block";
-
-      // reset dialogue in case of refresh / double click
-      document.getElementById("dialogue").innerHTML = "";
-      i = 0;
-      typeDialogue();
-
-    }, 2000);
+  document.getElementById("nextToQuestion").onclick = function() {
+    showScene("scene3");
   };
 
   // ---- Roy guarding No button (bounded movement) ----
@@ -327,30 +347,17 @@
   royContainer.addEventListener("mouseover", moveRoyContainer);
   royContainer.addEventListener("touchstart", moveRoyContainer);
 
-  // ---- YES button action ----
+  // ---- YES -> Flash -> Final scene ----
   document.getElementById("yesBtn").onclick = function() {
-    document.getElementById("finalMessage").style.display = "block";
-    launchConfetti();
+    const flash = document.getElementById("flash");
+    flash.classList.remove("flashOn");
+    void flash.offsetWidth; // restart animation
+    flash.classList.add("flashOn");
+
+    setTimeout(() => {
+      showScene("scene4");
+    }, 650);
   };
-
-  // ---- Confetti ----
-  function launchConfetti() {
-    for (let i = 0; i < 140; i++) {
-      const conf = document.createElement("div");
-      conf.className = "confetti";
-
-      conf.style.left = Math.random() * 100 + "vw";
-      conf.style.animationDuration = (2.0 + Math.random() * 1.5) + "s";
-
-      conf.style.backgroundColor =
-        ["crimson","gold","white"][Math.floor(Math.random() * 3)];
-
-      document.body.appendChild(conf);
-
-      // cleanup
-      setTimeout(() => conf.remove(), 4000);
-    }
-  }
 
   // ---- Ember background effect ----
   for (let i = 0; i < 45; i++) {
@@ -358,7 +365,7 @@
     ember.className = "ember";
     ember.style.left = Math.random() * 100 + "vw";
     ember.style.animationDuration = (3 + Math.random() * 3) + "s";
-    ember.style.opacity = (0.3 + Math.random() * 0.7);
+    ember.style.opacity = (0.25 + Math.random() * 0.65);
     ember.style.transform = `scale(${0.6 + Math.random() * 1.2})`;
     document.body.appendChild(ember);
   }
