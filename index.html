@@ -8,365 +8,439 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
-  body {
-    margin: 0;
-    background: black;
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    overflow: hidden;
-  }
+body {
+  margin: 0;
+  background: black;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
 
-  /* Background */
-  .alchemy-bg {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.12;
-    background:
-      radial-gradient(circle at center, rgba(255,120,0,0.22), transparent 55%),
-      radial-gradient(circle at center, rgba(255,255,255,0.06), transparent 60%);
-  }
+/* Background */
+.alchemy-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.12;
+  background:
+    radial-gradient(circle at center, rgba(255,120,0,0.22), transparent 55%),
+    radial-gradient(circle at center, rgba(255,255,255,0.06), transparent 60%);
+  transition: opacity 1s ease;
+}
 
-  .alchemy-ring {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 520px;
-    height: 520px;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    border: 1px solid rgba(255, 180, 80, 0.25);
-    box-shadow: 0 0 30px rgba(255, 140, 0, 0.10);
-    pointer-events: none;
-    animation: rotate 22s linear infinite;
-  }
+.alchemy-ring {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 520px;
+  height: 520px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 180, 80, 0.25);
+  box-shadow: 0 0 30px rgba(255, 140, 0, 0.10);
+  pointer-events: none;
+  animation: rotate 22s linear infinite;
+  transition: opacity 1s ease;
+}
 
-  .alchemy-ring::before,
-  .alchemy-ring::after {
-    content: "";
-    position: absolute;
-    inset: 22px;
-    border-radius: 50%;
-    border: 1px dashed rgba(255, 180, 80, 0.20);
-  }
+.alchemy-ring::before,
+.alchemy-ring::after {
+  content: "";
+  position: absolute;
+  inset: 22px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 180, 80, 0.20);
+}
 
-  .alchemy-ring::after {
-    inset: 70px;
-    border: 1px solid rgba(255, 180, 80, 0.15);
-  }
+.alchemy-ring::after {
+  inset: 70px;
+  border: 1px solid rgba(255, 180, 80, 0.15);
+}
 
-  @keyframes rotate {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to   { transform: translate(-50%, -50%) rotate(360deg); }
-  }
+@keyframes rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
 
-  /* Scenes */
-  .scene {
-    position: fixed;
-    inset: 0;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    padding: 22px;
-    transition: opacity 1s ease;
-    opacity: 0;
-    z-index: 5;
-  }
+/* Scenes */
+.scene {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 22px;
+  transition: opacity 1s ease;
+  opacity: 0;
+  z-index: 5;
+}
 
-  .scene.active {
-    display: flex;
-    opacity: 1;
-  }
+.scene.active {
+  display: flex;
+  opacity: 1;
+}
 
-  .card {
-    width: min(720px, 92vw);
-    background: rgba(0,0,0,0.35);
-    border: 1px solid rgba(255, 180, 80, 0.12);
-    border-radius: 22px;
-    padding: 26px 20px;
-    box-shadow: 0 0 30px rgba(0,0,0,0.5);
-    backdrop-filter: blur(6px);
-  }
+.card {
+  width: min(720px, 92vw);
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255, 180, 80, 0.12);
+  border-radius: 22px;
+  padding: 26px 20px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  backdrop-filter: blur(6px);
+}
 
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5em;
-    margin: 0;
-  }
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5em;
+  margin: 0;
+}
 
-  p {
-    opacity: 0.9;
-    font-size: 1.1em;
-    line-height: 1.6;
-  }
+p {
+  opacity: 0.9;
+  font-size: 1.1em;
+  line-height: 1.6;
+}
 
-  button {
-    padding: 12px 25px;
-    margin-top: 18px;
-    font-size: 18px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.15s ease, opacity 0.15s ease;
-  }
+button {
+  padding: 12px 25px;
+  margin-top: 18px;
+  font-size: 18px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
 
-  button:active { transform: scale(0.98); }
+button:active { transform: scale(0.98); }
 
-  .primary {
-    background: crimson;
-    color: white;
-  }
+.primary {
+  background: crimson;
+  color: white;
+}
 
-  .secondary {
-    background: #444;
-    color: white;
-  }
+.secondary {
+  background: #444;
+  color: white;
+}
 
-  /* Dialogue */
-  #dialogue {
-    margin-top: 14px;
-    min-height: 90px;
-    font-size: 1.2em;
-  }
+/* Dialogue */
+#dialogue {
+  margin-top: 14px;
+  min-height: 90px;
+  font-size: 1.2em;
+}
 
-  /* Spotify */
-  .spotify-wrap {
-    margin-top: 18px;
-    display: flex;
-    justify-content: center;
-  }
-  .spotify-wrap iframe {
-    border-radius: 14px;
-    box-shadow: 0 0 20px rgba(255, 120, 0, 0.10);
-    border: 1px solid rgba(255, 180, 80, 0.12);
-  }
+/* Spotify */
+.spotify-wrap {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+}
+.spotify-wrap iframe {
+  border-radius: 14px;
+  box-shadow: 0 0 20px rgba(255, 120, 0, 0.10);
+  border: 1px solid rgba(255, 180, 80, 0.12);
+}
 
-  /* Roy container */
-  #royContainer {
-    position: relative;
-    display: inline-block;
-    margin-top: 10px;
-  }
-  #royText {
-    font-size: 14px;
-    margin-bottom: 6px;
-    color: orange;
-    opacity: 0.9;
-  }
+/* Roy container */
+#royContainer {
+  position: relative;
+  display: inline-block;
+  margin-top: 10px;
+}
+#royText {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: orange;
+  opacity: 0.9;
+}
 
-  /* Embers */
-  .ember {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: orange;
-    border-radius: 50%;
-    opacity: 0.85;
-    animation: rise 5s linear infinite;
-    filter: blur(0.2px);
-    pointer-events: none;
-  }
+/* Embers */
+.ember {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: orange;
+  border-radius: 50%;
+  opacity: 0.85;
+  animation: rise 5s linear infinite;
+  filter: blur(0.2px);
+  pointer-events: none;
+}
 
-  @keyframes rise {
-    0%   { transform: translateY(110vh); opacity: 1; }
-    100% { transform: translateY(-15vh); opacity: 0; }
-  }
+@keyframes rise {
+  0%   { transform: translateY(110vh); opacity: 1; }
+  100% { transform: translateY(-15vh); opacity: 0; }
+}
 
-  /* Transmutation flash */
-  #flash {
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(255,180,90,0.9), rgba(255,90,0,0.2), rgba(0,0,0,0));
-    opacity: 0;
-    pointer-events: none;
-    z-index: 999;
-  }
+/* Transmutation flash */
+#flash {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,180,90,0.95), rgba(255,90,0,0.2), rgba(0,0,0,0));
+  opacity: 0;
+  pointer-events: none;
+  z-index: 999;
+}
 
-  .flashOn {
-    animation: flash 1.2s ease forwards;
-  }
+.flashOn {
+  animation: flash 1.2s ease forwards;
+}
 
-  @keyframes flash {
-    0%   { opacity: 0; }
-    18%  { opacity: 1; }
-    55%  { opacity: 0.35; }
-    100% { opacity: 0; }
-  }
+@keyframes flash {
+  0%   { opacity: 0; }
+  18%  { opacity: 1; }
+  55%  { opacity: 0.35; }
+  100% { opacity: 0; }
+}
 
-  /* Mobile */
-  @media (max-width: 520px) {
-    h1 { font-size: 2.1em; }
-    #dialogue { font-size: 1.05em; }
-  }
+/* =========================
+   FINAL SCENE (Decorated + Seal)
+   ========================= */
+#scene4 {
+  z-index: 20;
+}
+
+.finalWrap {
+  position: relative;
+  width: min(820px, 92vw);
+  padding: 34px 22px;
+  border-radius: 28px;
+  background: radial-gradient(circle at top, rgba(255,180,90,0.14), rgba(0,0,0,0.55));
+  border: 1px solid rgba(255, 180, 80, 0.18);
+  box-shadow:
+    0 0 45px rgba(0,0,0,0.6),
+    0 0 45px rgba(255,140,0,0.08);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.finalGlow {
+  position: absolute;
+  inset: -60px;
+  background: radial-gradient(circle at center, rgba(255, 180, 90, 0.25), transparent 60%);
+  opacity: 0.9;
+  filter: blur(10px);
+  pointer-events: none;
+  animation: pulse 3.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.75; }
+  50%      { transform: scale(1.05); opacity: 1; }
+}
+
+.finalTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6em;
+  letter-spacing: 0.5px;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.finalText {
+  margin-top: 18px;
+  font-size: 1.35em;
+  line-height: 1.7;
+  opacity: 0.95;
+  position: relative;
+  z-index: 2;
+}
+
+.finalSig {
+  margin-top: 22px;
+  font-size: 1.1em;
+  opacity: 0.92;
+  position: relative;
+  z-index: 2;
+}
+
+.finalSmall {
+  margin-top: 16px;
+  font-size: 0.95em;
+  opacity: 0.65;
+  position: relative;
+  z-index: 2;
+}
+
+/* Seal SVG */
+#seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 420px;
+  height: 420px;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  opacity: 0.85;
+}
+#seal circle {
+  fill: none;
+  stroke: gold;
+  stroke-width: 4;
+  stroke-dasharray: 1319;
+  stroke-dashoffset: 1319;
+  animation: drawSeal 2.2s ease forwards 0.6s;
+}
+
+@keyframes drawSeal {
+  0% { stroke-dashoffset: 1319; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  h1 { font-size: 2.1em; }
+  #dialogue { font-size: 1.05em; }
+  .finalTitle { font-size: 2.1em; }
+  .finalText { font-size: 1.15em; }
+  #seal { width: 320px; height: 320px; }
+}
 </style>
 </head>
 
 <body>
-  <div class="alchemy-bg"></div>
-  <div class="alchemy-ring"></div>
-  <div id="flash"></div>
+<div id="alchemyBg" class="alchemy-bg"></div>
+<div id="alchemyRing" class="alchemy-ring"></div>
+<div id="flash"></div>
 
-  <!-- SCENE 1 -->
-  <div id="scene1" class="scene active">
-    <div class="card">
-      <h1>Sushma...</h1>
-      <p>There’s something I need to tell you.</p>
-      <button id="startBtn" class="primary">Begin Our Story 🔥</button>
+<!-- SCENE 1 -->
+<div id="scene1" class="scene active">
+  <div class="card">
+    <h1>Sushma...</h1>
+    <p>There’s something I need to tell you.</p>
+    <button id="startBtn" class="primary">Begin Our Story 🔥</button>
+  </div>
+</div>
+
+<!-- SCENE 2 -->
+<div id="scene2" class="scene">
+  <div class="card">
+    <h1>Sushma</h1>
+    <div id="dialogue"></div>
+    <div class="spotify-wrap">
+      <iframe
+        src="https://open.spotify.com/embed/track/5XeFesFbtLpXzIVDNQP22n?utm_source=generator"
+        width="320"
+        height="80"
+        frameborder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy">
+      </iframe>
+    </div>
+    <button id="nextToQuestion" class="primary" style="margin-top:22px;">Continue →</button>
+  </div>
+</div>
+
+<!-- SCENE 3 -->
+<div id="scene3" class="scene">
+  <div class="card">
+    <h1>One question…</h1>
+    <p style="margin-top:10px;">Will you be my Valentine? 💖</p>
+    <button id="yesBtn" class="primary">Yes ❤️</button>
+    <div id="royContainer">
+      <div id="royText">🔥 Roy Mustang is guarding this</div>
+      <button id="noBtn" class="secondary">No</button>
     </div>
   </div>
+</div>
 
-  <!-- SCENE 2 -->
-  <div id="scene2" class="scene">
-    <div class="card">
-      <h1>Sushma</h1>
-      <div id="dialogue"></div>
+<!-- SCENE 4 -->
+<div id="scene4" class="scene">
+  <div class="finalWrap">
+    <div class="finalGlow"></div>
+    <svg id="seal" viewBox="0 0 420 420">
+      <circle cx="210" cy="210" r="210"></circle>
+    </svg>
 
-      <div class="spotify-wrap">
-        <iframe
-          src="https://open.spotify.com/embed/track/5XeFesFbtLpXzIVDNQP22n?utm_source=generator"
-          width="320"
-          height="80"
-          frameborder="0"
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          loading="lazy">
-        </iframe>
-      </div>
-
-      <button id="nextToQuestion" class="primary" style="margin-top:22px;">
-        Continue →
-      </button>
+    <h1 class="finalTitle">Law of Equivalent Exchange…</h1>
+    <div class="finalText">
+      I’ll give you half of my life<br>
+      if you give me half of yours.
     </div>
+    <div class="finalSig">— Rakesh ❤️</div>
+    <div class="finalSmall">✨ This is my vow.</div>
   </div>
-
-  <!-- SCENE 3 -->
-  <div id="scene3" class="scene">
-    <div class="card">
-      <h1>One question…</h1>
-      <p style="margin-top:10px;">Will you be my Valentine? 💖</p>
-
-      <button id="yesBtn" class="primary">Yes ❤️</button>
-
-      <div id="royContainer">
-        <div id="royText">🔥 Roy Mustang is guarding this</div>
-        <button id="noBtn" class="secondary">No</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- SCENE 4 -->
-  <div id="scene4" class="scene">
-    <div class="card">
-      <h1>Law of Equivalent Exchange…</h1>
-      <p style="margin-top:16px; font-size:1.25em;">
-        I’ll give you half of my life<br>
-        if you give me half of yours.
-      </p>
-      <p style="margin-top:18px; opacity:0.95;">
-        — Rakesh ❤️
-      </p>
-    </div>
-  </div>
+</div>
 
 <script>
   // ---- Scene control ----
   function showScene(id) {
     const scenes = ["scene1", "scene2", "scene3", "scene4"];
-    scenes.forEach(s => {
-      const el = document.getElementById(s);
-      el.classList.remove("active");
-    });
-
-    const next = document.getElementById(id);
-    next.classList.add("active");
+    scenes.forEach(s => document.getElementById(s).classList.remove("active"));
+    document.getElementById(id).classList.add("active");
   }
 
-  // ---- Dialogue (shorter) ----
+  // ---- Dialogue ----
   const text = [
     "Sushma...",
     "You make my world feel like home.",
     "And I don’t want to do life without you."
   ];
 
-  let i = 0;
-
   function typeDialogue() {
     const dialogueEl = document.getElementById("dialogue");
     dialogueEl.innerHTML = "";
-
+    let i = 0;
     function typeLine() {
       if (i >= text.length) return;
-
-      const line = text[i];
-      let j = 0;
-
+      const line = text[i]; let j = 0;
       const interval = setInterval(() => {
         dialogueEl.innerHTML += line[j];
         j++;
-
-        if (j >= line.length) {
-          clearInterval(interval);
-          dialogueEl.innerHTML += "<br><br>";
-          i++;
-          setTimeout(typeLine, 650);
-        }
+        if (j >= line.length) { clearInterval(interval); dialogueEl.innerHTML += "<br><br>"; i++; setTimeout(typeLine, 650);}
       }, 32);
     }
-
-    i = 0;
     typeLine();
   }
 
   // ---- Buttons ----
-  document.getElementById("startBtn").onclick = function() {
-    showScene("scene2");
-    typeDialogue();
-  };
+  document.getElementById("startBtn").onclick = function() { showScene("scene2"); typeDialogue(); };
+  document.getElementById("nextToQuestion").onclick = function() { showScene("scene3"); };
 
-  document.getElementById("nextToQuestion").onclick = function() {
-    showScene("scene3");
-  };
-
-  // ---- Roy guarding No button (bounded movement) ----
+  // ---- Roy dodge ----
   const royContainer = document.getElementById("royContainer");
-
   function moveRoyContainer() {
     const padding = 20;
     const maxX = window.innerWidth - royContainer.offsetWidth - padding;
     const maxY = window.innerHeight - royContainer.offsetHeight - padding;
-
     const x = Math.max(padding, Math.random() * maxX);
     const y = Math.max(padding, Math.random() * maxY);
-
     royContainer.style.position = "fixed";
     royContainer.style.left = x + "px";
     royContainer.style.top = y + "px";
   }
-
   royContainer.addEventListener("mouseover", moveRoyContainer);
   royContainer.addEventListener("touchstart", moveRoyContainer);
 
-  // ---- YES -> Flash -> Final scene ----
+  // ---- YES -> Flash -> Final scene with seal ----
   document.getElementById("yesBtn").onclick = function() {
     const flash = document.getElementById("flash");
-    flash.classList.remove("flashOn");
-    void flash.offsetWidth; // restart animation
+    flash.classList.remove("flashOn"); void flash.offsetWidth;
     flash.classList.add("flashOn");
 
     setTimeout(() => {
+      ["scene1","scene2","scene3"].forEach(id => document.getElementById(id).style.display = "none");
+      document.getElementById("alchemyRing").style.opacity = "0";
+      document.getElementById("alchemyBg").style.opacity = "0.06";
+      document.querySelectorAll(".ember").forEach(e => e.remove());
       showScene("scene4");
+      document.getElementById("scene4").style.background = "radial-gradient(circle at center, rgba(255,170,80,0.08), rgba(0,0,0,0.85))";
     }, 650);
   };
 
   // ---- Ember background effect ----
-  for (let i = 0; i < 45; i++) {
-    const ember = document.createElement("div");
-    ember.className = "ember";
-    ember.style.left = Math.random() * 100 + "vw";
-    ember.style.animationDuration = (3 + Math.random() * 3) + "s";
-    ember.style.opacity = (0.25 + Math.random() * 0.65);
-    ember.style.transform = `scale(${0.6 + Math.random() * 1.2})`;
+  for (let i=0;i<45;i++){
+    const ember=document.createElement("div");
+    ember.className="ember";
+    ember.style.left=Math.random()*100+"vw";
+    ember.style.animationDuration=(3+Math.random()*3)+"s";
+    ember.style.opacity=(0.25+Math.random()*0.65);
+    ember.style.transform=`scale(${0.6+Math.random()*1.2})`;
     document.body.appendChild(ember);
   }
 </script>
