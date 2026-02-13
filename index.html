@@ -84,13 +84,15 @@ body {
 }
 
 .card {
-  width: min(720px, 92vw);
-  background: rgba(0,0,0,0.85); /* solid so buttons visible */
+  width: min(900px, 95vw);
+  min-height: 420px;
+  background: rgba(0,0,0,0.95); /* solid so No button visible */
   border: 1px solid rgba(255, 180, 80, 0.12);
-  border-radius: 22px;
-  padding: 26px 20px;
-  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  border-radius: 28px;
+  padding: 34px 28px;
+  box-shadow: 0 0 40px rgba(0,0,0,0.5);
   backdrop-filter: blur(6px);
+  position: relative;
 }
 
 h1 {
@@ -101,7 +103,7 @@ h1 {
 
 p {
   opacity: 0.9;
-  font-size: 1.1em;
+  font-size: 1.15em;
   line-height: 1.6;
 }
 
@@ -117,38 +119,20 @@ button {
 
 button:active { transform: scale(0.98); }
 
-.primary {
-  background: crimson;
-  color: white;
-}
-
-.secondary {
-  background: #444;
-  color: white;
-}
+.primary { background: crimson; color: white; }
+.secondary { background: #444; color: white; }
 
 /* Dialogue */
-#dialogue {
-  margin-top: 14px;
-  min-height: 90px;
-  font-size: 1.2em;
-}
+#dialogue { margin-top: 14px; min-height: 90px; font-size: 1.2em; }
 
 /* Spotify */
-.spotify-wrap {
-  margin-top: 18px;
-  display: flex;
-  justify-content: center;
-}
-.spotify-wrap iframe {
-  border-radius: 14px;
-  box-shadow: 0 0 20px rgba(255, 120, 0, 0.10);
-  border: 1px solid rgba(255, 180, 80, 0.12);
-}
+.spotify-wrap { margin-top: 18px; display: flex; justify-content: center; }
+.spotify-wrap iframe { border-radius: 14px; box-shadow: 0 0 20px rgba(255,120,0,0.10); border:1px solid rgba(255,180,80,0.12); }
 
 /* Roy container */
 #royContainer {
-  position: relative;
+  position: fixed; /* fixed so always above card */
+  z-index: 999;   /* above everything */
   display: inline-block;
   margin-top: 10px;
 }
@@ -156,7 +140,7 @@ button:active { transform: scale(0.98); }
   font-size: 14px;
   margin-bottom: 6px;
   color: orange;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 /* Embers */
@@ -173,8 +157,8 @@ button:active { transform: scale(0.98); }
 }
 
 @keyframes rise {
-  0%   { transform: translateY(110vh); opacity: 1; }
-  100% { transform: translateY(-15vh); opacity: 0; }
+  0% { transform: translateY(110vh); opacity:1; }
+  100% { transform: translateY(-15vh); opacity:0; }
 }
 
 /* Flash */
@@ -186,14 +170,12 @@ button:active { transform: scale(0.98); }
   pointer-events: none;
   z-index: 999;
 }
-.flashOn {
-  animation: flash 1.2s ease forwards;
-}
+.flashOn { animation: flash 1.2s ease forwards; }
 @keyframes flash {
-  0%   { opacity: 0; }
-  18%  { opacity: 1; }
-  55%  { opacity: 0.35; }
-  100% { opacity: 0; }
+  0%   { opacity:0; }
+  18%  { opacity:1; }
+  55%  { opacity:0.35; }
+  100% { opacity:0; }
 }
 
 /* FINAL SCENE */
@@ -201,20 +183,20 @@ button:active { transform: scale(0.98); }
 
 .finalWrap {
   position: relative;
-  width: min(820px, 92vw);
-  padding: 34px 22px;
+  width: min(900px, 95vw);
+  padding: 60px 40px;
   border-radius: 28px;
   background: radial-gradient(circle at top, rgba(255,180,90,0.14), rgba(0,0,0,0.55));
-  border: 1px solid rgba(255, 180, 80, 0.18);
+  border: 1px solid rgba(255,180,80,0.18);
   box-shadow: 0 0 45px rgba(0,0,0,0.6), 0 0 45px rgba(255,140,0,0.08);
   backdrop-filter: blur(10px);
-  overflow: hidden;
+  overflow: visible; /* allow seal to overflow */
 }
 
 .finalGlow {
   position: absolute;
   inset: -60px;
-  background: radial-gradient(circle at center, rgba(255, 180, 90, 0.25), transparent 60%);
+  background: radial-gradient(circle at center, rgba(255,180,90,0.25), transparent 60%);
   opacity: 0.9;
   filter: blur(10px);
   pointer-events: none;
@@ -222,25 +204,25 @@ button:active { transform: scale(0.98); }
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 0.75; }
-  50%      { transform: scale(1.05); opacity: 1; }
+  0%,100% { transform: scale(1); opacity:0.75; }
+  50% { transform: scale(1.05); opacity:1; }
 }
 
-.finalTitle { font-family: 'Playfair Display', serif; font-size: 2.6em; margin:0; position: relative; z-index:2; }
-.finalText { margin-top: 18px; font-size: 1.35em; line-height:1.7; opacity:0.95; position: relative; z-index:2; }
-.finalSig { margin-top: 22px; font-size: 1.1em; opacity:0.92; position: relative; z-index:2; }
-.finalSmall { margin-top:16px; font-size:0.95em; opacity:0.65; position: relative; z-index:2; }
+.finalTitle { font-family: 'Playfair Display', serif; font-size: 2.8em; margin:0; position:relative; z-index:2; }
+.finalText { margin-top:18px; font-size:1.5em; line-height:1.7; opacity:0.95; position:relative; z-index:2; }
+.finalSig { margin-top:22px; font-size:1.2em; opacity:0.92; position:relative; z-index:2; }
+.finalSmall { margin-top:16px; font-size:1em; opacity:0.65; position:relative; z-index:2; }
 
 /* Seal SVG */
-#seal { position:absolute; top:50%; left:50%; width:420px; height:420px; transform:translate(-50%,-50%); z-index:1; opacity:0.85; }
-#seal circle { fill:none; stroke:gold; stroke-width:4; stroke-dasharray:1319; stroke-dashoffset:1319; animation: drawSeal 2.2s ease forwards 0.6s; }
-@keyframes drawSeal { 0% { stroke-dashoffset:1319;} 100% { stroke-dashoffset:0;} }
+#seal { position:absolute; top:50%; left:50%; width:480px; height:480px; transform:translate(-50%,-50%); z-index:1; opacity:0.85; }
+#seal circle { fill:none; stroke:gold; stroke-width:4; stroke-dasharray:1510; stroke-dashoffset:1510; animation: drawSeal 2.2s ease forwards 0.6s; }
+@keyframes drawSeal { 0% { stroke-dashoffset:1510;} 100% { stroke-dashoffset:0;} }
 
-@media (max-width:520px){
+@media(max-width:520px){
   h1{font-size:2.1em;}
   #dialogue{font-size:1.05em;}
   .finalTitle{font-size:2.1em;}
-  .finalText{font-size:1.15em;}
+  .finalText{font-size:1.2em;}
   #seal{width:320px;height:320px;}
 }
 </style>
@@ -302,22 +284,20 @@ button:active { transform: scale(0.98); }
 
 <script>
 // Scene control
-function showScene(id) {
-  const scenes = ["scene1","scene2","scene3","scene4"];
-  scenes.forEach(s => document.getElementById(s).classList.remove("active"));
+function showScene(id){
+  const scenes=["scene1","scene2","scene3","scene4"];
+  scenes.forEach(s=>document.getElementById(s).classList.remove("active"));
   document.getElementById(id).classList.add("active");
 }
 
 // Dialogue
-const text = [
-  "Sushma...", "You make my world feel like home.", "And I don’t want to do life without you."
-];
+const text=["Sushma...","You make my world feel like home.","And I don’t want to do life without you."];
 
-function typeDialogue() {
-  const dialogueEl = document.getElementById("dialogue");
+function typeDialogue(){
+  const dialogueEl=document.getElementById("dialogue");
   dialogueEl.innerHTML="";
   let i=0;
-  function typeLine() {
+  function typeLine(){
     if(i>=text.length) return;
     const line=text[i]; let j=0;
     const interval=setInterval(()=>{
@@ -328,7 +308,7 @@ function typeDialogue() {
   typeLine();
 }
 
-document.getElementById("startBtn").onclick = ()=>{ showScene("scene2"); typeDialogue();}
+document.getElementById("startBtn").onclick = ()=>{ showScene("scene2"); typeDialogue(); }
 document.getElementById("nextToQuestion").onclick = ()=>{ showScene("scene3"); }
 
 // Roy smooth dodge
@@ -339,8 +319,7 @@ function moveRoyContainer(){
   const maxY=window.innerHeight-royContainer.offsetHeight-padding;
   const x=Math.max(padding,Math.random()*maxX);
   const y=Math.max(padding,Math.random()*maxY);
-  royContainer.style.transition="left 0.25s ease, top 0.25s ease";
-  royContainer.style.position="fixed";
+  royContainer.style.transition="left 0.4s ease, top 0.4s ease";
   royContainer.style.left=x+"px";
   royContainer.style.top=y+"px";
 }
